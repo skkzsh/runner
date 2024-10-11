@@ -1,0 +1,22 @@
+services:
+  runner:
+    image: my/runner:${RUNNER_IMAGE_TAG:-latest}
+    build:
+      context: .
+      secrets:
+        - gh_bearer_token
+        - runner_token
+    container_name: runner_container
+    environment:
+      TZ: Asia/Tokyo
+      # healthcheck:
+      #   test: wget -q --spider http://localhost:80 || exit 1
+      #   interval: 5s
+      # --interval=60s --timeout=5s --start-period=10s
+
+secrets:
+  gh_bearer_token:
+    environment: GH_BEARER_TOKEN
+  runner_token:
+    environment: RUNNER_TOKEN
+
